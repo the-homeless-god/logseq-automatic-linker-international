@@ -19,27 +19,10 @@ const CUSTOM_QUERY_PLACEHOLDER = "3cf737a1-1a29-4dd1-8db5-45effa23c810";
 
 const parseForRegex = (s: string) => {
   //Remove regex special characters from s
-  // s = s.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
   s = s.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
-
+  // Добавляем поддержку русских символов в пробелах
+  s = s.replace(/\s+/g, "[\\s\\u0020\\u00A0]+");
   return s;
-  // .replaceAll("[", "\\[")
-  // .replaceAll("]", "\\]")
-  // .replaceAll(")", "\\)")
-  // .replaceAll("(", "\\(")
-  // .replaceAll("+", "\\+")
-  // .replaceAll("-", "\\-")
-  // .replaceAll("{", "\\{")
-  // .replaceAll("}", "\\}")
-  // .replaceAll("*", "\\*")
-  // .replaceAll("?", "\\?")
-  // .replaceAll(".", "\\.")
-  // .replaceAll("^", "\\^")
-  // .replaceAll("$", "\\$")
-  // .replaceAll("|", "\\|")
-  // .replaceAll("\\", "\\\\")
-  // .replaceAll("/", "\\/")
-  // .replaceAll(" ", "\\s+");
 };
 
 export function replaceContentWithPageLinks(
@@ -130,33 +113,30 @@ export function replaceContentWithPageLinks(
           if (parseAsTags || (parseSingleWordAsTag && !hasSpaces)) {
             return hasSpaces ? `#[[${whichCase}]]` : `#${whichCase}`;
           }
-          return `[[${whichCase}]]`;
+          return `[[${whichCase}]]`; // Изменено: всегда возвращаем ссылку
         });
         needsUpdate = true;
-        // setTimeout(() => { inProcess = false }, 300)
       }
     }
-    //if value is chinese
   });
 
   // Restore content that should not be automatically linked
-  codeblockReversalTracker?.forEach((value, index) => {
+  codeblockReversalTracker.forEach((value) => {
     content = content.replace(CODE_BLOCK_PLACEHOLDER, value);
   });
-  inlineCodeReversalTracker?.forEach((value, index) => {
+  inlineCodeReversalTracker.forEach((value) => {
     content = content.replace(INLINE_CODE_PLACEHOLDER, value);
   });
-  propertyTracker?.forEach((value, index) => {
+  propertyTracker.forEach((value) => {
     content = content.replace(PROPERTY_PLACEHOLDER, value);
   });
-  markdownLinkTracker?.forEach((value, index) => {
+  markdownLinkTracker.forEach((value) => {
     content = content.replace(MARKDOWN_LINK_PLACEHOLDER, value);
   });
-  Object.entries(MARKER_PLACEHOLDERS).forEach(([marker, markerPlaceholder]) => {
-    content = content.replaceAll(markerPlaceholder, marker);
+  Object.entries(MARKER_PLACEHOLDERS).forEach(([marker, placeholder]) => {
+    content = content.replaceAll(placeholder, marker);
   });
-
-  customQueryTracker?.forEach((value, index) => {
+  customQueryTracker.forEach((value) => {
     content = content.replace(CUSTOM_QUERY_PLACEHOLDER, value);
   });
 

@@ -1,4 +1,5 @@
 import { replaceContentWithPageLinks } from "../src/functions";
+import { describe, expect, it } from '@jest/globals';
 
 describe("replaceContentWithPageLinks()", () => {
   it("should preserve code blocks", () => {
@@ -272,5 +273,62 @@ describe("replaceContentWithPageLinks()", () => {
     expect(content).toBe(
       `This block implicitly contains unicode words like [[가나다]].`
     );
+  });
+
+  describe("Russian language support", () => {
+    it("should handle basic Russian words", () => {
+      let [content, update] = replaceContentWithPageLinks(
+        ["Тест", "Страница"],
+        "Это Тест и Страница",
+        false,
+        false
+      );
+      expect(content).toBe("Это [[Тест]] и [[Страница]]");
+      expect(update).toBe(true);
+    });
+
+    it("should handle Russian words with spaces", () => {
+      let [content, update] = replaceContentWithPageLinks(
+        ["Новая Страница", "Тестовый Документ"],
+        "Это Новая Страница и Тестовый Документ",
+        false,
+        false
+      );
+      expect(content).toBe("Это [[Новая Страница]] и [[Тестовый Документ]]");
+      expect(update).toBe(true);
+    });
+
+    it("should handle mixed Russian-English text", () => {
+      let [content, update] = replaceContentWithPageLinks(
+        ["Test", "Тест", "Page", "Страница"],
+        "This is a Test and Page с Тест и Страница",
+        false,
+        false
+      );
+      expect(content).toBe("This is a [[Test]] and [[Page]] с [[Тест]] и [[Страница]]");
+      expect(update).toBe(true);
+    });
+
+    it("should handle Russian case sensitivity", () => {
+      let [content, update] = replaceContentWithPageLinks(
+        ["тест", "ТЕСТ", "Тест"],
+        "Это тест, ТЕСТ и Тест",
+        false,
+        false
+      );
+      expect(content).toBe("Это [[тест]], [[ТЕСТ]] и [[Тест]]");
+      expect(update).toBe(true);
+    });
+
+    it("should handle Russian tags", () => {
+      let [content, update] = replaceContentWithPageLinks(
+        ["тест", "документация"],
+        "Это #тест и документация",
+        true,
+        true
+      );
+      expect(content).toBe("Это #тест и #документация");
+      expect(update).toBe(true);
+    });
   });
 });
