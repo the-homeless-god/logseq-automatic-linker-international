@@ -1,6 +1,6 @@
 {
   "name": "logseq-automatic-linker-international",
-  "version": "1.6.0",
+  "version": "1.0.2",
   "description": "A plugin to automatically create links for international users",
   "main": "dist/index.html",
   "targets": {
