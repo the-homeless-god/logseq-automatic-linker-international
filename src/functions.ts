@@ -92,7 +92,7 @@ export function replaceContentWithPageLinks(
     );
     // console.log({LogseqAutomaticLinker: "value", value})
     const chineseRegex = new RegExp(
-      `(?<!\\[)${parseForRegex(page)}(?!\\])`,
+      `(?<!\\[|#)${parseForRegex(page)}(?!\\])`,
       "gm"
     );
     if (page.match(/^[\u4e00-\u9fa5]{0,}$/gm)) {

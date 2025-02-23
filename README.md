@@ -1,4 +1,12 @@
-# Automatic Linker for Logseq
+# Automatic Linker for Logseq International
+
+Languages supported:
+- English
+- Russian
+- Chinese
+- Korean
+- Japanese
+
 ![GitHub all releases](https://img.shields.io/github/downloads/the-homeless-god/logseq-automatic-linker-international/total) ![version](https://img.shields.io/github/package-json/v/the-homeless-god/logseq-automatic-linker-international)
 
 A plugin to automatically create links while typing.
