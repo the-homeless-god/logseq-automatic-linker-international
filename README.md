@@ -1,12 +1,6 @@
 # Automatic Linker for Logseq International
 
-Languages supported:
-- English
-- Russian
-- Chinese
-- Korean
-- Japanese
-- German
+<img width="573" alt="image" src="https://github.com/user-attachments/assets/bc769b8d-fa9c-4f9d-9956-415f6393d8e5" />
 
 ## Language Support
 
