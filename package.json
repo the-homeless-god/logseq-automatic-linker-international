@@ -12,7 +12,7 @@
     "dev": "parcel build --no-optimize index.html --public-url ./"
   },
   "keywords": [],
-  "author": "Aryan Sawhney",
+  "author": "Marat Zimnurov <zimtir@mail.ru>",
   "license": "MIT",
   "dependencies": {
     "@logseq/libs": "0.0.6",
