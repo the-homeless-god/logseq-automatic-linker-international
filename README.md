@@ -6,6 +6,66 @@ Languages supported:
 - Chinese
 - Korean
 - Japanese
+- German
+
+## Language Support
+
+The plugin supports automatic linking for multiple languages with their specific characteristics:
+
+### Currently Supported Features:
+
+- Multi-language text recognition
+- Special characters handling (е.g., German umlauts: ä, ö, ü, ß)
+- Mixed language content (e.g., English + Chinese, Russian + English)
+- Case sensitivity for all languages
+- Tag support (#) for all languages
+- Space-separated words and phrases
+- Unicode support for Asian languages
+
+### Adding Support for a New Language
+
+If you want to add support for a new language, follow these steps:
+
+1. Add tests in `tests/functions.test.ts`:
+```typescript
+describe("Your Language support", () => {
+  it("should handle basic words", () => {
+    let [content, update] = replaceContentWithPageLinks(
+      ["YourWord1", "YourWord2"],
+      "Your test sentence with YourWord1 and YourWord2",
+      false,
+      false
+    );
+    expect(content).toBe("Your test sentence with [[YourWord1]] and [[YourWord2]]");
+    expect(update).toBe(true);
+  });
+
+  it("should handle words with spaces", () => {
+    // Test for multi-word phrases
+  });
+
+  it("should handle special characters", () => {
+    // Test for language-specific characters
+  });
+
+  it("should handle tags", () => {
+    // Test for # tag functionality
+  });
+});
+```
+
+2. If your language requires special handling (like Chinese characters), add appropriate regex patterns in `src/functions.ts`.
+
+3. Update the language list in this README.
+
+4. Run tests (`yarn test`) to ensure everything works correctly.
+
+### Language-Specific Notes
+
+- **Asian Languages (Chinese, Japanese, Korean)**: Uses specific Unicode range detection
+- **European Languages**: Supports special characters and diacritics
+- **Mixed Language Content**: Automatically handles mixed language content in the same text
+- **Case Sensitivity**: Preserves original case when the page name is lowercase, uses page case otherwise
 
 ![GitHub all releases](https://img.shields.io/github/downloads/the-homeless-god/logseq-automatic-linker-international/total) ![version](https://img.shields.io/github/package-json/v/the-homeless-god/logseq-automatic-linker-international)
 
